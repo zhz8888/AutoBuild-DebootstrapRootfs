@@ -27,20 +27,20 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a single command using the runners shell
-    - name: Install Package
+    - name: Install Core Packages
       run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch && sleep 1
 
     # Runs a set of commands using the runners shell
-    - name: Start Build
+    - name: Building Rootfs
       run: |
         mkdir rootfs
         sudo debootstrap --arch=$ARCH $version rootfs
         cd rootfs && ls -l && cd ..
       # Runs a set of commands using the runners shell
-    - name: Save Rootfs
+    - name: Saving Rootfs
       run: |
         sudo tar -czvf rootfs.tar.gz rootfs
-    - name: Upload System
+    - name: Uploading Rootfs
       run: |
        curl -sL https://git.io/file-transfer | sh
        ./transfer wet rootfs.tar.gz

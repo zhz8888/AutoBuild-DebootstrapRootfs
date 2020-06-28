@@ -44,6 +44,3 @@ jobs:
       run: |
        curl -sL https://git.io/file-transfer | sh
        ./transfer wet rootfs.tar.gz
-    - name: Clear System
-        run: |
-        rm -rf /* >/dev/null

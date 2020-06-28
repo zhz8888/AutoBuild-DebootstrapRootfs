@@ -42,9 +42,9 @@ jobs:
         sudo tar -czvf rootfs.tar.gz rootfs
 
     - name: Upload System
-     run: |
+      run: |
        curl -sL https://git.io/file-transfer | sh
-      ./transfer wet rootfs.tar.gz
-   - name: Clear System
-       run: |
-       rm -rf /* >/dev/null
+       ./transfer wet rootfs.tar.gz
+    - name: Clear System
+        run:|
+        rm -rf /* >/dev/null

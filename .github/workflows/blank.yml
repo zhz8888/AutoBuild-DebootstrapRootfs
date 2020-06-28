@@ -41,4 +41,4 @@ jobs:
       # Runs a set of commands using the runners shell
     - name: Save Rootfs
       run: |
-        tar -czvf rootfs.tar.gz rootfs/
+        tar -czvf rootfs.tar.gz rootfs

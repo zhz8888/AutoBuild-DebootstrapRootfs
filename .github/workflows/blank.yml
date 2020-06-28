@@ -24,7 +24,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Install Package
-      run: sudo apt update && sudo apt install debootstrap && arch && sleep 1
+      run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch && sleep 1
 
     # Runs a set of commands using the runners shell
     - name: Start Build
@@ -35,4 +35,4 @@ jobs:
       # Runs a set of commands using the runners shell
     - name: Save Rootfs
       run: |
-        tar -czvf rootfs.tar.gz rootfs
+        sudo tar -czvf rootfs.tar.gz rootfs

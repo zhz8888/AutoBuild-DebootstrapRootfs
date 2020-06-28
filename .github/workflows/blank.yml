@@ -13,6 +13,7 @@ on:
 env:
   ARCH: arm64
   version: focal
+  repo: http://ports.ubuntu.com/ubuntu-ports
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

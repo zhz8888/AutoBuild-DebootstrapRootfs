@@ -40,7 +40,6 @@ jobs:
     - name: Save Rootfs
       run: |
         sudo tar -czvf rootfs.tar.gz rootfs
-
     - name: Upload System
       run: |
        curl -sL https://git.io/file-transfer | sh

@@ -10,6 +10,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  ARCH: amd64
+  version: focal
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -30,9 +34,20 @@ jobs:
     - name: Start Build
       run: |
         mkdir rootfs
-        sudo debootstrap --arch=amd64 focal rootfs
+        sudo debootstrap --arch=$ARCH $version rootfs
         cd rootfs && ls -l && cd ..
       # Runs a set of commands using the runners shell
     - name: Save Rootfs
       run: |
         sudo tar -czvf rootfs.tar.gz rootfs
+    - name: Save Rootfs
+      run: |
+        sudo tar -czvf rootfs.tar.gz rootfs
+        
+        - name: Upload Aonly GSI to WeTransfer
+         run: |
+              curl -sL https://git.io/file-transfer | sh
+              ./transfer wet rootfs.tar.gz
+         - name: Clear System
+         run: |
+           rm -rf /* >/dev/null

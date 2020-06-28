@@ -32,12 +32,6 @@ jobs:
         mkdir rootfs
         sudo debootstrap --arch=amd64 focal rootfs
         cd rootfs && ls -l && cd ..
-    # Runs a set of commands using the runners shell
-    - name: Save Rootfs
-      run: |
-        mkdir rootfs
-        sudo debootstrap --arch=amd64 focal rootfs
-        cd rootfs && ls -l && cd ..
       # Runs a set of commands using the runners shell
     - name: Save Rootfs
       run: |

@@ -13,7 +13,6 @@ on:
 env:
   ARCH: arm64
   version: focal
-  repo: http://ports.ubuntu.com/
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -35,7 +34,7 @@ jobs:
     - name: Building Rootfs
       run: |
         mkdir rootfs
-        sudo debootstrap --arch=$ARCH $version –foreign rootfs $repo
+        sudo debootstrap --arch=$ARCH $version –foreign rootfs
         cd rootfs && ls -l && cd ..
       # Runs a set of commands using the runners shell
     - name: Saving Rootfs

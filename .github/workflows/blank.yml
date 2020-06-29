@@ -28,7 +28,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Install Core Packages
-      run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch && sleep 1
+      run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch
 
     # Runs a set of commands using the runners shell
     - name: Building Rootfs
@@ -39,7 +39,7 @@ jobs:
       # Runs a set of commands using the runners shell
     - name: Saving Rootfs
       run: |
-        sudo tar -czvf rootfs.tar.gz rootfs
+        sudo tar -czvf rootfs-$version-$ARCH.tar.gz rootfs
     - name: Uploading Rootfs
       run: |
        curl -sL https://git.io/file-transfer | sh

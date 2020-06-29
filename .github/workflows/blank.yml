@@ -43,4 +43,4 @@ jobs:
     - name: Uploading Rootfs
       run: |
        curl -sL https://git.io/file-transfer | sh
-       ./transfer wet rootfs.tar.gz
+       ./transfer wet rootfs-$version-$ARCH.tar.gz

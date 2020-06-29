@@ -41,7 +41,7 @@ jobs:
       run: |
         cd rootfs
         sudo tar -cvf rootfs-$version-$ARCH.tar *
-        sudo xz -z rootfs-$version-$ARCH.tar
+        sudo xz -z rootfs-$version-$ARCH.tar.xz
     - name: Uploading Rootfs
       run: |
        curl -sL https://git.io/file-transfer | sh

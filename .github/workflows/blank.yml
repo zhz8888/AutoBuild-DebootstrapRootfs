@@ -40,8 +40,9 @@ jobs:
     - name: Saving Rootfs
       run: |
         cd rootfs
-        sudo tar -czvf rootfs-$version-$ARCH.tar.gz ./
+        sudo tar -cvf rootfs-$version-$ARCH.tar *
+        sudo xz -z rootfs-$version-$ARCH.tar
     - name: Uploading Rootfs
       run: |
        curl -sL https://git.io/file-transfer | sh
-       ./transfer wet rootfs-$version-$ARCH.tar.gz
+       ./transfer wet rootfs-$version-$ARCH.tar.xz

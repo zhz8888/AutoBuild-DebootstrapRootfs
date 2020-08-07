@@ -1,0 +1,46 @@
+name: Auto_Build_DebootstrapRootfs
+
+on:
+#  release:
+#    types: [published]
+#  push:
+#    branches:
+#      - master
+#    paths:
+#      - '.config'
+#  schedule:
+#    - cron: 0 8 * * 5
+  watch:
+    types: [started]
+
+env:
+  ARCH: arm64
+  version: bullseye
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Core Packages
+      run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch
+
+    - name: Building Rootfs
+      run: |
+        mkdir rootfs
+        sudo debootstrap --arch=$ARCH --foreign $version rootfs
+        ls -l rootfs
+
+    - name: Saving Rootfs
+      run: |
+        cd rootfs
+        sudo tar -czvf rootfs-$version-$ARCH.tar.gz *
+        mv rootfs-$version-$ARCH.tar.gz ../
+        cd ..
+
+    - name: Uploading Rootfs
+      run: |
+       curl -sL https://git.io/file-transfer | sh
+       ./transfer wet rootfs-$version-$ARCH.tar.gz

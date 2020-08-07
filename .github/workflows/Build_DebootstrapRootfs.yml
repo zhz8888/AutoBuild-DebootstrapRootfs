@@ -22,7 +22,9 @@ jobs:
     runs-on: ubuntu-18.04
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
-    - uses: actions/checkout@v2
+
+    - name: Check Out
+      uses: actions/checkout@v2
 
     - name: Install Core Packages
       run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch

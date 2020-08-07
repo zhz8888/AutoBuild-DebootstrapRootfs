@@ -29,13 +29,13 @@ jobs:
     - name: Install Core Packages
       run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch
 
-    - name: Building Rootfs
+    - name: Build Rootfs
       run: |
         mkdir rootfs
         sudo debootstrap --arch=$ARCH --foreign $version rootfs
         ls -l rootfs
 
-    - name: Saving Rootfs
+    - name: Zip Rootfs
       run: |
         cd rootfs
         sudo tar -czvf rootfs-$version-$ARCH.tar.gz *

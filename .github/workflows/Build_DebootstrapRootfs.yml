@@ -53,3 +53,9 @@ jobs:
         name: Rootfs
         path: rootfs-*.tar.gz
         if-no-files-found: error
+
+    # 下面两项为开启Actions的SSH，仅作为调试使用，如需使用则删除 '#' 和后面的空格即可
+    # - name: SSH Connection To Actions
+    #   uses: P3TERX/debugger-action@master
+    # 当有任务失败时打开SSH，建议搭配上面使用，使用方法同上
+    #   if: failure()

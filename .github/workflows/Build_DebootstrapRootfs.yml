@@ -27,7 +27,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Core Packages
-      run: sudo apt update && sudo apt install debootstrap neofetch -y && neofetch
+      run: sudo apt update && sudo apt install debootstrap neofetch -y
 
     - name: Build Rootfs
       run: |

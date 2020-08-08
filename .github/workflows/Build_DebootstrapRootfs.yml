@@ -56,7 +56,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install debootstrap neofetch
+        sudo -E apt-get -y install debootstrap neofetch gzip bzip2 tar rar unzip
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo -E apt -y full-upgrade
@@ -69,15 +69,15 @@ jobs:
     - name: Zip Rootfs
       run: |
         cd rootfs
-        tar -zcvf rootfs-$version-$ARCH.tar.gz *
-        mv rootfs-$version-$ARCH.tar.gz ../
+        sudo tar -Jcvf rootfs-$version-$ARCH.tar.xz *
+        mv rootfs-$version-$ARCH.tar.xz ../
         cd ..
 
     - name: Upload Rootfs
       uses: actions/upload-artifact@v2
       with:
         name: Rootfs
-        path: rootfs-*.tar.gz
+        path: rootfs-*.tar.xz
         if-no-files-found: error
 
 #    下面两项为开启Actions的SSH，仅作为调试使用，如需使用则删除前面的 '#' 即可

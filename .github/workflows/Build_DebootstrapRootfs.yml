@@ -29,7 +29,7 @@ jobs:
     - name: Install Core Packages
       run: |
         sudo apt update
-        sudo apt-get install debootstrap neofetch wget gzip bzip2 tar rar unzip -y
+        sudo apt-get install debootstrap neofetch -y
         sudo apt upgrade -y
 
     - name: Build Rootfs
@@ -40,15 +40,15 @@ jobs:
     - name: Zip Rootfs
       run: |
         cd rootfs
-        tar -Jcvf rootfs-$version-$ARCH.tar.xz *
-        mv rootfs-$version-$ARCH.tar.xz ../
+        tar -zcvf rootfs-$version-$ARCH.tar.gz *
+        mv rootfs-$version-$ARCH.tar.gz ../
         cd ..
 
     - name: Upload Rootfs
       uses: actions/upload-artifact@v2
       with:
         name: Rootfs
-        path: rootfs-*.tar.xz
+        path: rootfs-*.tar.gz
         if-no-files-found: error
 
 #    下面两项为开启Actions的SSH，仅作为调试使用，如需使用则删除前面的 '#' 即可

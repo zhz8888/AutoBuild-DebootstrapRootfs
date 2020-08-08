@@ -27,30 +27,32 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Core Packages
-      run: sudo apt update && sudo apt install debootstrap neofetch -y
+      run: |
+        sudo apt update
+        sudo apt-get install debootstrap neofetch wget gzip bzip2 tar rar unzip -y
+        sudo apt upgrade -y
 
     - name: Build Rootfs
       run: |
         mkdir rootfs
         sudo debootstrap --arch=$ARCH --foreign $version rootfs
-        ls -l rootfs
 
     - name: Zip Rootfs
       run: |
         cd rootfs
-        sudo tar -czvf rootfs-$version-$ARCH.tar.gz *
-        mv rootfs-$version-$ARCH.tar.gz ../
+        tar -Jcvf rootfs-$version-$ARCH.tar.xz *
+        mv rootfs-$version-$ARCH.tar.xz ../
         cd ..
 
     - name: Upload Rootfs
       uses: actions/upload-artifact@v2
       with:
         name: Rootfs
-        path: rootfs-*.tar.gz
+        path: rootfs-*.tar.xz
         if-no-files-found: error
 
-    # 下面两项为开启Actions的SSH，仅作为调试使用，如需使用则删除 '#' 和后面的空格即可
-    # - name: SSH Connection To Actions
-    #   uses: P3TERX/debugger-action@master
-    # 当有任务失败时打开SSH，建议搭配上面使用，使用方法同上
-    #   if: failure()
+#    下面两项为开启Actions的SSH，仅作为调试使用，如需使用则删除前面的 '#' 即可
+#    - name: SSH Connection To Actions
+#      uses: P3TERX/debugger-action@master
+#    当有任务失败时打开SSH，建议搭配上面使用，使用方法同上
+#      if: failure()

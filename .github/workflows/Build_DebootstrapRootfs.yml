@@ -42,11 +42,6 @@ jobs:
         mv rootfs-$version-$ARCH.tar.gz ../
         cd ..
 
-#    - name: Upload Rootfs
-#      run: |
-#       curl -sL https://git.io/file-transfer | sh
-#       ./transfer wet rootfs-$version-$ARCH.tar.gz
-
     - name: Upload Rootfs
       uses: actions/upload-artifact@v2
       with:

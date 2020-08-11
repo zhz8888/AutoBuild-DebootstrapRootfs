@@ -50,9 +50,14 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install debootstrap neofetch gzip bzip2 tar rar unzip
+        sudo -E apt-get -y install debootstrap neofetch gzip bzip2 tar rar unzip aptitude
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
+        sudo -E apt-get autoclean
+        sudo dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
+        sudo deborphan | xargs sudo apt-get purge -y
+        sudo aptitude purge ~o
+        sudo dd if=/dev/null of=/var/log/*.log
         sudo -E apt -y full-upgrade
 
     - name: Build Rootfs
@@ -63,19 +68,13 @@ jobs:
     - name: Zip Rootfs
       run: |
         cd rootfs
-        sudo tar -Jcvf rootfs-$version-$ARCH.tar.xz *
-        mv rootfs-$version-$ARCH.tar.xz ../
+        sudo tar -zcvf rootfs-$version-$ARCH.tar.gz *
+        mv rootfs-$version-$ARCH.tar.gz ../
         cd ..
 
     - name: Upload Rootfs
       uses: actions/upload-artifact@v2
       with:
         name: Rootfs
-        path: rootfs-*.tar.xz
+        path: rootfs-*.tar.gz
         if-no-files-found: error
-
-#    下面两项为开启Actions的SSH，仅作为调试使用，如需使用则删除前面的 '#' 即可
-#    - name: SSH Connection To Actions
-#      uses: P3TERX/debugger-action@master
-#    当有任务失败时打开SSH，建议搭配上面使用，使用方法同上
-#      if: failure()

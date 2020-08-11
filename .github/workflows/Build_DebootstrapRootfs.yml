@@ -52,12 +52,10 @@ jobs:
         sudo -E apt-get update
         sudo -E apt-get -y install debootstrap neofetch gzip bzip2 tar rar unzip aptitude
         sudo -E apt-get -y autoremove --purge
+        sudo dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
         sudo -E apt-get clean
         sudo -E apt-get autoclean
-        sudo dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
         sudo deborphan | xargs sudo apt-get purge -y
-        sudo aptitude purge ~o
-        sudo dd if=/dev/null of=/var/log/*.log
         sudo -E apt -y full-upgrade
 
     - name: Build Rootfs

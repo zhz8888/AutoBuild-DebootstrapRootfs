@@ -15,7 +15,7 @@ on:
 
 env:
   ARCH: arm64
-  version: bullseye
+  version: focal
 
 jobs:
   build:

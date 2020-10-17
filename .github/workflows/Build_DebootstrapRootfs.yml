@@ -14,8 +14,12 @@ on:
     types: [started]
 
 env:
-  ARCH: arm64
-  version: focal
+  arm64: arm64
+  arm32: armhf
+  ubuntu-20.04: focal
+  ubuntu-18.04: bionic
+  ubuntu-16.04: xenial
+  debian-10: buster
 
 jobs:
   build:
@@ -61,18 +65,18 @@ jobs:
     - name: Build Rootfs
       run: |
         mkdir rootfs
-        sudo debootstrap --arch=$ARCH --foreign $version rootfs
+        sudo debootstrap --arch=$arm64 --foreign $ubuntu-20.04 rootfs
 
     - name: Zip Rootfs
       run: |
         cd rootfs
-        sudo tar -zcvf rootfs-$version-$ARCH.tar.gz *
-        mv rootfs-$version-$ARCH.tar.gz ../
+        sudo tar -zcvf Rootfs-$ubuntu-20.04-$arm64.tar.gz *
+        mv Rootfs-$ubuntu-20.04-$arm64.tar.gz ../
         cd ..
 
     - name: Upload Rootfs
       uses: actions/upload-artifact@v2
       with:
         name: Rootfs
-        path: rootfs-*.tar.gz
+        path: Rootfs-*.tar.gz
         if-no-files-found: error
